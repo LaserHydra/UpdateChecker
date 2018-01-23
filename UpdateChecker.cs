@@ -9,19 +9,16 @@ using Version = Oxide.Core.VersionNumber;
 
 namespace Oxide.Plugins
 {
-    [Info("UpdateChecker", "LaserHydra", "2.2.0", ResourceId = 681)]
-    [Description("Notifies you if you have outdated plugins.")]
+    [Info("UpdateChecker", "LaserHydra", "2.2.1", ResourceId = 681)]
+    [Description("Checks for and notifies of any outdated plugins")]
     public sealed class UpdateChecker : CovalencePlugin
     {
         #region Fields
 
         private const string PluginInformationUrl = "http://oxide.laserhydra.com/plugins/{resourceId}/";
 
-        [PluginReference("EmailAPI")]
-        private Plugin EmailAPI;
-
-        [PluginReference("PushAPI")]
-        private Plugin PushAPI;
+        [PluginReference]
+        private Plugin EmailAPI, PushAPI;
 
         #endregion
 
@@ -30,7 +27,6 @@ namespace Oxide.Plugins
         private void Loaded()
         {
             LoadConfig();
-            LoadMessages();
 
             timer.Repeat(GetConfig(60f, "Settings", "Auto Check Interval (in Minutes)") * 60, 0, () => CheckForUpdates(null));
             CheckForUpdates(null);
@@ -49,7 +45,7 @@ namespace Oxide.Plugins
             SaveConfig();
         }
 
-        private void LoadMessages()
+        private new void LoadDefaultMessages()
         {
             lang.RegisterMessages(new Dictionary<string, string>
             {
@@ -68,7 +64,7 @@ namespace Oxide.Plugins
 
         #region Commands
 
-        [Command("updates"), Permission("updater.check")]
+        [Command("updates"), Permission("updatechecker.use")]
         private void CmdUpdates(IPlayer player, string cmd, string[] args)
         {
             SendMessage(player, GetMsg("Checking", player.Id));
