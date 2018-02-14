@@ -2,8 +2,6 @@
 
 ## Permissions
 
-This plugin uses Oxide's permission system. To assign a permission, use `oxide.grant user <name or steam id> <permission>`. To remove a permission, use `oxide.revoke user <name or steam id> <permission>`.
-
 - **updatechecker.use** -- Allows player to run the update check
 
 ## Commands
@@ -11,10 +9,6 @@ This plugin uses Oxide's permission system. To assign a permission, use `oxide.g
 - **updates** -- Triggers the plugin update checking sequence.
 
 ## Configuration
-
-You can configure the settings and messages in the `UpdateChecker.json` file under the `oxide/config` directory.
-
-### Default Configuration
 
 ```json
 {
