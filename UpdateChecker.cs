@@ -24,7 +24,7 @@ namespace Oxide.Plugins
 
         #region Hooks
 
-        private void Loaded()
+        private void OnServerInitialized()
         {
             LoadConfig();
 
