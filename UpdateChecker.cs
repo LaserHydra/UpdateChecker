@@ -9,7 +9,7 @@ using Version = Oxide.Core.VersionNumber;
 
 namespace Oxide.Plugins
 {
-    [Info("UpdateChecker", "LaserHydra", "2.2.1", ResourceId = 681)]
+    [Info("Update Checker", "LaserHydra", "2.2.1")]
     [Description("Checks for and notifies of any outdated plugins")]
     public sealed class UpdateChecker : CovalencePlugin
     {
