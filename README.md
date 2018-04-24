@@ -12,6 +12,7 @@
 
 ```json
 {
+  "Ignored Plugins (Filenames of plugins which to ignore in version check)": [ ],
   "Settings": {
     "Auto Check Interval (in Minutes)": 60.0,
     "Use EmailAPI": false,
@@ -28,9 +29,12 @@ The default messages are in the `UpdateChecker.json` file under the `oxide/lang/
 
 ```json
 {
-  "No Permission": "Following plugins are outdated: {plugins}",
-  "Outdated Plugin List": "Following plugins are outdated: {plugins}",
-  "Outdated Plugin Info": "# {title} | Installed: {installed} - Latest: {latest} | {url}"
+  "Checking": "Checking for updates... This may take a few seconds. Please be patient.",
+  "Outdated Plugin List": "Following plugins are outdated:\n{plugins}",
+  "Outdated Plugin Info": "# {title} | Installed: {installed} - Latest: {latest} | {url}",
+  "Resource Unavailable": "Following plugins are not accessible online at the moment, and therefore cannot be checked for updates: {plugins}",
+  "Resource Release Unavailable": "Following plugins do not have a release version, and therefore cannot be checked for updates: {plugins}",
+  "Resource Details Unavailable": "Following plugins have an improper version number else may not have a release version available, and therefore cannot be checked for updates: {plugins}"
 }
 ```
 
