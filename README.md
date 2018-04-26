@@ -1,12 +1,14 @@
-**Update Checker** automatically checks all supported Oxide plugins for updates on server start or on command. This is useful to see if you are using an outdated, older versions of plugins. It will also automatically check for updates every hour, or at the time configured. Update Checker also supports the Email API and Push API plugins for instant notifications.
+**Update Checker** automatically checks all supported Oxide and uMod plugins for updates on server start or on command. This is useful to see if you are using an outdated, older versions of plugins. It will also automatically check for updates every hour, or at the time configured. Update Checker also supports the Email API and Push API plugins for instant notifications.
 
 ## Permissions
 
-- **updatechecker.use** -- Allows player to run the update check
+- `updatechecker.use` -- Allows player to run the update check
 
 ## Commands
 
-- **updates** -- Triggers the plugin update checking sequence.
+This plugin provides universal chat and console commands. When using a command in the chat, prefix it with a forward slash: `/`.
+
+- `updates` -- Trigger the plugin update checking sequence
 
 ## Configuration
 
