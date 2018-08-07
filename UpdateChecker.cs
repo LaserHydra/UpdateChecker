@@ -1,7 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿#define DEBUG
+
+using Newtonsoft.Json;
 using Oxide.Core;
 using Oxide.Core.Libraries.Covalence;
-using Oxide.Core.Plugins;
+using Oxide.Core.Plugins; 
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +11,7 @@ using Version = Oxide.Core.VersionNumber;
 
 namespace Oxide.Plugins
 {
-    [Info("Update Checker", "LaserHydra", "2.3.0")]
+    [Info("Update Checker", "LaserHydra", "2.3.1")]
     [Description("Checks for and notifies of any outdated plugins")]
     public sealed class UpdateChecker : CovalencePlugin
     {
@@ -135,12 +137,16 @@ namespace Oxide.Plugins
 
                 webrequest.Enqueue(PluginInformationUrl.Replace("{identifier}", pluginIdentifier), null,
                     (code, response) =>
-                    {
-                        if (code != 200)
+					{
+						if (code != 200)
                         {
 	                        failedApiAccess = true;
-                        }
-                        else
+
+#if DEBUG
+	                        PrintWarning($"API request for identifier '{pluginIdentifier}' returned code '{code}' with response: {response}");
+#endif
+						}
+						else
                         {
                             var apiResponse = JsonConvert.DeserializeObject<ApiResponse>(response);
 
@@ -204,20 +210,28 @@ namespace Oxide.Plugins
 		                        PrintWarning("The plugin list for the API is unavailable, please contact the developer.");
 	                        }
 
-							var outdatedPluginText = GetMsg("Outdated Plugin Info");
+	                        if (outdatedPlugins.Count != 0)
+	                        {
+		                        var outdatedPluginText = GetMsg("Outdated Plugin Info");
 
-                            var outdatedPluginLines = outdatedPlugins.Select(kvp =>
-                                outdatedPluginText
-                                    .Replace("{title}", kvp.Key.Title)
-                                    .Replace("{installed}", kvp.Key.Version.ToString())
-                                    .Replace("{latest}", kvp.Value.Version).Replace("{url}", kvp.Value.Url)
-                            );
+		                        var outdatedPluginLines = outdatedPlugins.Select(kvp =>
+			                        outdatedPluginText
+				                        .Replace("{title}", kvp.Key.Title)
+				                        .Replace("{installed}", kvp.Key.Version.ToString())
+				                        .Replace("{latest}", kvp.Value.Version).Replace("{url}", kvp.Value.Url)
+		                        );
 
-                            SendMessage(
-                                requestor,
-                                GetMsg("Outdated Plugin List")
-                                    .Replace("{plugins}", string.Join(Environment.NewLine, outdatedPluginLines.ToArray()))
-                            );
+		                        SendMessage(
+			                        requestor,
+			                        GetMsg("Outdated Plugin List")
+				                        .Replace("{plugins}", string.Join(Environment.NewLine, outdatedPluginLines.ToArray()))
+		                        );
+	                        }
+	                        else
+	                        {
+		                        // TODO: Output -> No plugins outdated
+								// TODO: Make the API accept a list of plugins
+	                        }
                         }
 
                     }, this);
